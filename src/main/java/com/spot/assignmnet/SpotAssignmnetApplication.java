@@ -18,7 +18,6 @@ public class SpotAssignmnetApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpotAssignmnetApplication.class, args);
-		System.out.println("started...");
 	}
 
 	@Bean
