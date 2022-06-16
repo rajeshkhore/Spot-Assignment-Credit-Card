@@ -7,19 +7,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreditCardResponsePayload {
 
-
 	private String cardNumber;
 
 	private String cardHolderName;
-	
+
 	private String country;
-	
-	
+
 	public CreditCardResponsePayload(String cardNumber, String cardHolderName, String country) {
-		
+
 		this.cardNumber = cardNumber;
 		this.cardHolderName = cardHolderName;
 		this.country = country;
+
 	}
- 
+
+	public CreditCardResponsePayload(String cardNumber) {
+
+		this.cardNumber = cardNumber;
+		
+	}
+
 }
