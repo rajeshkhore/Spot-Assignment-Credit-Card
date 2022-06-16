@@ -1,0 +1,71 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Spot Assignment(Credit Card)",
+		"_postman_id": "70e2e990-7e9e-6e54-544e-b9fc8037995b",
+		"description": "Credit card validation check",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add credit card",
+			"request": {
+				"url": "http://localhost:8080/api/credit-card/add",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\"45717360\",\"12345\",\"1358954993914435\"\n]"
+				},
+				"description": "http://localhost:8080/api/credit-card\n\n\nsend list of object\nfor example:-\n[\n\t{\n\t\t\"creditCardNumber\": \"45717360\",\n\t\t\"cardHolderName\":\"palash\"\n\t\t\n\t},\n\t{\n\t\t\"creditCardNumber\": \"6250941006528599\",\n\t\t\"cardHolderName\":\"rahul\"\n\t},\n\t{\n\t\t\"creditCardNumber\": \"378282246310005\",\n\t\t\"cardHolderName\":\"xyz\"\n\t}\n]"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Credit card by card number",
+			"request": {
+				"url": "http://localhost:8080/api/credit-card/{card-number}",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n45717360\n]"
+				},
+				"description": "http://localhost:8080/api/credit-card/{card-number}\n\nreplace \"{card-number}\" with credit card number\n\nfor example:-\nhttp://localhost:8080/api/credit-card/3242321325"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all credit card",
+			"request": {
+				"url": "http://localhost:8080/api/credit-card",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n45717360\n]"
+				},
+				"description": "http://localhost:8080/api/credit-card\n\njust hit the API to get all the credit card"
+			},
+			"response": []
+		}
+	]
+}
