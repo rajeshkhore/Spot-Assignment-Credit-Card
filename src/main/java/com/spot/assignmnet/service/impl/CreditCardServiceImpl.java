@@ -30,16 +30,17 @@ public class CreditCardServiceImpl implements ICreditCardService {
 	Map<String, Object> validCreditCard = new HashMap<String, Object>();
 
 	@Override
-	public Set<CreditCardResponsePayload> addCreditCard(
-			List<CreditCardRequestPayload> creditCardRequestPayloadObjectList) {
+	public List<List<Object>> addCreditCard(List<CreditCardRequestPayload> creditCardRequestPayloadObjectList) {
 
 		RestTemplate restTemplate = new RestTemplate();
 
-		Set<CreditCardResponsePayload> creditCardResponsePayloadList = new HashSet<CreditCardResponsePayload>();
+		List<List<Object>> creditCardDetailsList = new ArrayList<>();
 
 		JSONObject country = null;
 		String countryName = null;
 		for (CreditCardRequestPayload creditCardRequestPayload : creditCardRequestPayloadObjectList) {
+
+			List<Object> creditCardDetails = new ArrayList<>();
 
 			String cardNumber = creditCardRequestPayload.getCreditCardNumber();
 			String cardHolderName = creditCardRequestPayload.getCardHolderName();
@@ -67,18 +68,48 @@ public class CreditCardServiceImpl implements ICreditCardService {
 					if (!bannedCountries.contains(countryName)) {
 
 						if (!validCreditCard.containsKey(cardNumber)) {
-							if (!validCreditCard.containsKey(cardNumber)) {
-								CreditCardResponsePayload creditCardResponsePayload = new CreditCardResponsePayload(
-										cardNumber, cardHolderName, countryName);
-								validCreditCard.put(cardNumber, creditCardResponsePayload);
-								creditCardResponsePayloadList.add(creditCardResponsePayload);
-							}
+
+							// valid card
+							CreditCardResponsePayload creditCardResponsePayload = new CreditCardResponsePayload(
+									cardNumber, cardHolderName, countryName);
+							validCreditCard.put(cardNumber, creditCardResponsePayload);
+							creditCardDetails.add(cardNumber);
+							creditCardDetails.add(cardHolderName);
+							creditCardDetails.add(countryName);
+							creditCardDetails.add("Card Entered successfully");
+							creditCardDetailsList.add(creditCardDetails);
+
+						} else {
+
+							// valid card but already present
+							creditCardDetails.add(cardNumber);
+							creditCardDetails.add(cardHolderName);
+							creditCardDetails.add(countryName);
+							creditCardDetails.add("Card already present");
+							creditCardDetailsList.add(creditCardDetails);
 						}
+
+					} else {
+
+						// valid card but from banned countries
+						creditCardDetails.add(cardNumber);
+						creditCardDetails.add(cardHolderName);
+						creditCardDetails.add(countryName);
+						creditCardDetails.add("Card Number is valid but credit card country is banned");
+						creditCardDetailsList.add(creditCardDetails);
 					}
+
 				}
+			} else {
+
+				// in valid card number
+				creditCardDetails.add(cardNumber);
+				creditCardDetails.add("Card Number Is invalid");
+				creditCardDetailsList.add(creditCardDetails);
+
 			}
 		}
-		return creditCardResponsePayloadList;
+		return creditCardDetailsList;
 
 	}
 
@@ -86,21 +117,22 @@ public class CreditCardServiceImpl implements ICreditCardService {
 	public Set<Object> getAllCreditCard() {
 
 		Set<Object> responseSet = new HashSet<Object>();
-		
-		for(String cardNumberKey : validCreditCard.keySet()) {
-			
-			CreditCardResponsePayload creditCardResponsePayload = (CreditCardResponsePayload) validCreditCard.get(cardNumberKey);
-			
+
+		for (String cardNumberKey : validCreditCard.keySet()) {
+
+			CreditCardResponsePayload creditCardResponsePayload = (CreditCardResponsePayload) validCreditCard
+					.get(cardNumberKey);
+
 			List<String> cardData = new ArrayList<String>();
-			
+
 			cardData.add(creditCardResponsePayload.getCardNumber());
 			cardData.add(creditCardResponsePayload.getCardHolderName());
 			cardData.add(creditCardResponsePayload.getCountry());
-			
+
 			responseSet.add(cardData);
-			
+
 		}
-		
+
 		return responseSet;
 	}
 
