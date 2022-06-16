@@ -28,18 +28,18 @@ public class CreditCardController {
 	@Autowired
 	ICreditCardService creditCardService;
 
-	@PostMapping("/add")
+	@PostMapping
 	public ResponseEntity<? extends Object> addCreditCard(
 			@RequestBody List<CreditCardRequestPayload> creditCardRequestPayloadObjectList) {
 
 		try {
-			Set<CreditCardResponsePayload> validCreditCardMap = creditCardService
+			List<List<Object>> validCreditCardMap = creditCardService
 					.addCreditCard(creditCardRequestPayloadObjectList);
 
 			if (validCreditCardMap != null && !validCreditCardMap.isEmpty()) {
-				return ResponseEntity.status(HttpStatus.OK).body("cards entered successfully: " + validCreditCardMap);
+				return ResponseEntity.status(HttpStatus.OK).body("Valid cards entered successfully: " + validCreditCardMap);
 			} else {
-				return ResponseEntity.status(HttpStatus.OK).body("No card number is valid...please enter card number");
+				return ResponseEntity.status(HttpStatus.OK).body("Invalid card number, Please enter valid card number");
 			}
 
 		} catch (Exception exception) {
