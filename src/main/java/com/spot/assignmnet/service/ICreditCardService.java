@@ -8,7 +8,7 @@ import com.spot.assignmnet.responsepayload.CreditCardResponsePayload;
 
 public interface ICreditCardService {
 
-	Set<CreditCardResponsePayload> addCreditCard(List<CreditCardRequestPayload> creditCardRequestPayloadObjectList);
+	List<List<Object>> addCreditCard(List<CreditCardRequestPayload> creditCardRequestPayloadObjectList);
 
 	Set<Object> getAllCreditCard();
 
