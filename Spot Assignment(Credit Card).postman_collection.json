@@ -10,7 +10,7 @@
 		{
 			"name": "Add credit card",
 			"request": {
-				"url": "http://localhost:8080/api/credit-card/add",
+				"url": "http://localhost:8080/api/credit-card",
 				"method": "POST",
 				"header": [
 					{
